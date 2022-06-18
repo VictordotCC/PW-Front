@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+    <head>
+      <!--Configuracion del stilos de los productos-->
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+
+        <!--Bootstrap-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <!--Custom Stylesheet-->
+        <link href="static/styles/styles.css" rel="stylesheet"/>
+        
+
+        <script src="https://kit.fontawesome.com/0c3992d49e.js" crossorigin="anonymous"></script>
+        <title>Jardiner&iacute;a  Huerto+</title>
+    </head>
+    
+    <body class="body-principal">
+        <header class="fixed-top d-block-flex">
+            <nav class="navbar navbar-dark navbar-expand-lg navbar-light bg-jardin">
+                <div class="container-fluid">
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <a class="navbar-brand" style="color:aliceblue" href="#home">Jardiner&iacute;a Huerto+</a>
+                  <form class="carrito" action="/carrito.html">
+                    <button class="btn btn-success d-lg-none icon-responsive" aria-current="false">
+                      <i class="fas fa-shopping-cart"></i>
+                      <span id="cartItems1" class="badge text-bg-success"></span>
+                    </button>
+                  </form>             
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                      <li class="nav-item">
+                        <a class="nav-link navitem" aria-current="page" href="#productos">Productos</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link navitem" aria-current="page" href="#seguimiento">Seguimiento</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link navitem" aria-current="page" href="#nosotros">Nosotros</a>   
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link navitem" aria-current="page" href="#contacto">Contacto</a>
+                      </li>
+                    </ul>
+                    <div id= "inicio-sesion" class="d-flex">
+                      <div class="d-flex">
+                          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalLogin">Iniciar Sesi&oacute;n</button>
+                      </div>
+                      <div class="d-flex">
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalRegistro">Registrarse</button>
+                      </div>
+                    </div>
+                    <div class="d-flex d-none d-lg-block">
+                        <a href="carrito.html" type="button" class="btn btn-success" aria-current="false">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span id="cartItems2" class="badge text-bg-success"></span>
+                        </a>
+                    </div>
+                  </div>
+
+                </div>
+              </nav>
+        </header>
+        <section id="home">
+          <!-- Seccion Bienvenida-->
+          <div class="home-text">
+            <h1>Bienvenido a Jardiner&iacute;a Huerto+</h1>
+            <h4>Somos una comunidad dedicada a la jardinería con compromiso social</h4>
+          </div>
+        </section>
+        <section id="carousel">
+          <div id="carouselExampleFade" class="carousel slide carousel-fade" style="margin-top: -1px; padding-bottom: 20px;" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="static/img/flores.jpg" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="static/img/garden.jpg" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="static/img/bricofondo.jpg" class="d-block w-100" alt="...">
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <section id="productos">
+          <!-- Aqui va la seccion de venta de productos-->
+          <div class="dropdown">
+            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+              Filtros
+            </button>
+            <ul id="menuFiltros" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <h6>Tipo de Producto</h6>
+              <li class="checkbox"><label><input type="checkbox" name="checkbox">Servicios</label></li>
+              <li class="checkbox"><label><input type="checkbox" name="checkbox">Herramientas</label></li>
+              <li class="checkbox"><label><input type="checkbox" name="checkbox">Productos</label></li>
+              <br>
+              <li style="text-align: end;"><button class="btn btn-success" id="filtros">Aplicar</button></li>       
+            </ul>
+          </div>
+
+
+          <div class="album py-5">
+            <div class="container">         
+              <!--Primera Fila-->
+              <div id="contenedor-productos" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 justify-content-center">
+                <!--Aqui van los Productos-->
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="seguimiento">
+          <!-- Aqui va la seccion de seguimiento de despacho-->
+          <div class="row text-center justify-content-center align-items-center">
+            <h3>Consulta el Estado de tu Pedido</h3>
+            <form class="g-3 needs-validation" novalidate>
+              <div class="row justify-content-center">
+                <div class="col-md-4 mb-3">
+                  <label for="validationTooltip01">Nº Seguimiento</label>
+                  <input type="text" class="form-control" id="validationTooltip01" placeholder="Número de Pedido" required>
+                  <div class="invalid-tooltip">
+                    Por favor ingrese un número de pedido válido.
+                  </div>
+                </div>
+                <div class="col-12">
+                  <button class="btn btn-success" type="submit">Buscar</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <br>
+          <div class="row justify-content-between text-center">
+            <span class="col-3 bodega" style="color:rgb(255, 0, 0)"><i class="fa-solid fa-warehouse fa-2x"></i></span><!-- Elminar el estilo : Backend-->
+            <span class="col-3 preparando"><i class="fa-solid fa-truck-ramp-box fa-2x"></i></span> 
+            <span class="col-3 camino"><i class="fa-solid fa-truck fa-2x"></i></span>
+            <span class="col-3 entregado"><i class="fa-solid fa-check fa-2x"></i></span>
+          </div>
+          <br>
+          <div class="row text-center">
+            <span class="col-3 bodega" style="color:rgb(255, 0, 0)">En Bodega</span><!-- Elminar el estilo : Backend-->
+            <span class="col-3 preparando">Preparando Entrega</span> 
+            <span class="col-3 camino">Camino al Domicilio</span>
+            <span class="col-3 entregado">Entregado</span>
+          </div>
+          <br>
+          <div class="row text-center" style="border-color: #ffffff; border-style: solid;">
+            <p>Su pedido se encuentra a la espera en nuestras bodegas</p>
+            <div class="table-responsive">
+              <h3>Pedido N°:</h3>
+              <table class="table table-borderless" style="color: white" id="tabladespacho">
+                <thead>
+                  <tr>
+                    <th scope="col">Servicio</th>
+                    <th scope="col">Entrega en</th>
+                    <th scope="col">Destino</th>
+                    <th scope="col">Última Actualización</th>
+                    <th scope="col">Destinatario</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><!-- eliminar info al implementar backend-->
+                    <td>Express</td>
+                    <td>10/10/2019</td>
+                    <td>Calle falsa 123</td>
+                    <td>10/10/2021 21:03:04</td>
+                    <td>Juan Perez</td>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </section>
+
+        <section id="nosotros">
+          <!-- Aqui va la seccion de nosotros-->
+          <div class="text-center row justify-content-center">
+            <h1>Nosotros</h1>
+            <h3>Somos una comunidad dedicada a la jardinería con compromiso social</h3>
+            <div class="col-lg-5 col-md-5">
+              <br>
+              <h5>"Durante años nos hemos preocupado por implementar una flora variada en nuestro
+                entorno, ayudando a organizaciones sociales a mejorar sus servicios y a promover
+                una mejor calidad de vida."
+              </h5>
+              <br>
+              <p>Desarrolladores: Jairo Álvarez - Víctor Celis</p>
+            </div>
+            
+          </div>
+        </section>
+        <section id="contacto">
+          <!-- Aqui va la seccion de contacto-->
+          <div class="container">
+            <div class="row justify content center">
+              <div class="text-center">
+                <h3>Jardiner&iacute;a Huerto+</h3>
+                <p style="color: #95939d">Si tienes alguna sugerencia que contribuya
+                a mejorar nuestros servicios, o simplemente quieres ayudar, no dudes en contactarnos</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4 col-md-4">
+                <div class="text-center">
+                  <h3>Nuestras Redes Sociales</h3>
+                </div>
+                <br>
+                <div class="text-center">
+                  <a href="#" class="link"><i class="fa-brands fa-facebook fa-2x"></i></a>
+                  <a href="#" class="link"><i class="fa-brands fa-twitter fa-2x"></i></a>
+                  <a href="#" class="link"><i class="fa-brands fa-instagram fa-2x"></i></a>
+                  <a href="#" class="link"><i class="fa-brands fa-youtube fa-2x"></i></a>
+                  <a href="#" class="link"><i class="fa-brands fa-linkedin fa-2x"></i></a>
+                  <a href="#" class="link"><i class="fa-brands fa-pinterest fa-2x"></i></a>
+                </div>          
+              </div>
+              <br>
+              <div class="col-lg-3 col-md-3 contacto font-responsive">
+                <h3>Contacto</h3><br>
+                <i class="fa-solid fa-mobile-screen fa-2x" style="padding-left: 3px;"></i>
+                <span style="color: #9d9393; vertical-align: top; margin-left: 5px;">+56 9 87654321</span>
+                <br>
+                <br>
+                <i class="fa fa-envelope fa-2x"></i>
+                <span style="color: #95939d; vertical-align: top; margin-left: 5px;">j.huerto.plus@gmail.com</span>
+                <br>
+                <br>
+                <i class="fa fa-map-marker fa-2x" style="padding-left: 3px;"></i>
+                <span style="color: #95939d; vertical-align: top; margin-left: 5px;">Av. San Martín #913, Providencia</span>
+              </div>
+              <div class="col-lg-5 col-md-5 contacto">
+                <h3>Formulario de Contacto</h3><br>
+                <div class="justify-content-center">
+                  <div class="form">
+                    <form>
+                      <div class="form-group">
+                        <div class="row">
+                          <div class="col-lg-6 col-md-6">
+                            <input type="text" class="form-control" style="margin-bottom: 15px;" id="nombreContacto" placeholder="Nombre" required>
+                          </div>
+                          <div class="col-lg-6 col-md-6">
+                            <input type="email" class="form-control" id="emailContacto" placeholder="Email" required>
+                          </div>
+                        </div>
+                        <div class="row" style="padding-top: 15px">
+                          <div class="col-lg-12 col-md-12">
+                            <input type="text" class="form-control" id="asuntoContacto" placeholder="Asunto" required>
+                          </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                          <div class="col-lg-12 col-md-12">
+                            <textarea class="form-control" id="mensaje" rows="5" placeholder="Mensaje" required></textarea>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-12 col-md-12 text-center">
+                            <button type="submit" class="btn btn-success flex-center">Enviar</button>
+                          </div>
+                        </div>               
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <footer><!--Agregar cosas-->
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="text-center" style="color: white">Jardiner&iacute;a Huerto+</p>
+                    </div>
+                </div>
+            </div>
+        </footer>        
+    
+
+        <!-- Ventanas Modales-->
+        
+
+        <!-- Modal Login-->
+        <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="modalLoginLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header bg-jardin">
+                <h5 class="modal-title" id="modalLoginLabel" style="color: #ffffff">Iniciar Sesi&oacute;n</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="InputEmail">Correo Electr&oacute;nico</label>
+                    <input type="email" class="form-control" id="InputEmail" name="email" aria-describedby="emailHelp" placeholder="Ingrese su correo electr&oacute;nico" required><br>
+                    <label for="InputPassword">Contrase&ntilde;a</label>
+                    <input type="password" class="form-control" id="InputPassword" name="password" placeholder="Ingrese su contraseña" required>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
+                    <button id="loguear" type="button" class="btn btn-success">Iniciar Sesi&oacute;n</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--Modal Registro-->
+        <div class="modal fade" id="modalRegistro" tabindex="-1" role="dialog" aria-labelledby="modalRegistroLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header bg-jardin">
+                <h5 class="modal-title" style="color: #ffffff" id="modalRegistroLabel">Registrarse</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form id = "form-registro">
+                  <div class="form-group">
+                    <label for="inputNombre">Nombre</label>
+                    <input type="text" class="form-control" id="inputNombre" name="nombre" placeholder="Ingrese su nombre" required><br>
+                    <label for="inputApellido">Apellido</label>
+                    <input type="text" class="form-control" id="inputApellido" name="apellido" placeholder="Ingrese su apellido" required><br>
+                    <label for="inputRun">Rut</label>
+                    <input type="text" class="form-control" id="inputRun" name="rut" placeholder="Ej: 12.345.678-9" required><br>
+                    <label for="InputNewEmail">Correo Electr&oacute;nico</label>
+                    <input type="email" class="form-control" id="InputNewEmail" aria-describedby="emailHelp" name="email" placeholder="Ingrese su correo electr&oacute;nico" required><br>
+                    <label for="InputDireccion">Direcci&oacute;n</label>
+                    <input type="text" class="form-control" id="InputDireccion" name="direccion" placeholder="Ingrese su direcci&oacute;n" required><br>
+                    <label for="InputRegion">Regi&oacute;n</label>
+                    <select class="form-select" id="InputRegion" name="region" required>
+                      <option value="">Seleccione una Regi&oacute;n</option>
+                    </select><br>
+                    <label for="InputComuna">Comuna</label>
+                    <select class="form-select" id="InputComuna" name="comuna" required>
+                      <option value="">Seleccione una Comuna</option>
+                    </select>
+                      <br>
+                    <label for="InputFono">Tel&eacute;fono</label>
+                    <input type="text" class="form-control" id="InputFono" name="fono" placeholder="Ingrese su tel&eacute;fono" required><br>
+                    <label for="InputNewPassword">Contrase&ntilde;a</label>
+                    <input type="password" class="form-control" id="InputNewPassword" name="password" placeholder="Ingrese su contraseña" required><br>
+                    <label for="InputNewPassword2">Confirmar Contrase&ntilde;a</label>
+                    <input type="password" class="form-control" id="InputNewPassword2" name="password2" placeholder="Confirme su contraseña" required><br>
+                    <label for="Suscripción">Suscripción para Donaci&oacute;n a Fundación MiCasa</label>
+                    <input type="checkbox" id="Suscripcion" name="suscripcion"><br>
+                    <small>Con la donación de $5.000 mensuales, obtendrás un descuento de 5% en todas tus compras.</small>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success" id="registrar">Registrar</button>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+        
+        
+        <!--JS Bootstrap & Popper-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+        <!--Jquery-->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <!--Custom Scripts-->
+        <script src="static/scripts/script.js"></script>
+        <script src="static/scripts/carrito.js"></script>
+      </body>
+</html>

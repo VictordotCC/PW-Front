@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+    <head>
+      <!--Configuracion del stilos de los productos-->
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+
+        <!--Bootstrap-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <!--Custom Stylesheet-->
+        <link href="static/styles/styles.css" rel="stylesheet"/>
+        
+
+        <script src="https://kit.fontawesome.com/0c3992d49e.js" crossorigin="anonymous"></script>
+        <title>Jardiner&iacute;a  Huerto+</title>
+    </head>
+    <body style="background-color: white">
+        <header class="fixed-top d-block-flex">
+            <nav class="navbar navbar-dark navbar-expand-lg navbar-light bg-jardin">
+                <div class="container-fluid">
+                  <a class="navbar-brand col-10" style="color:aliceblue" href="/">Jardiner&iacute;a Huerto+</a>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="d-flex">
+                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalLogin">Iniciar Sesi&oacute;n</button>
+                    </div>
+                    <div class="d-flex">
+                      <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalRegistro">Registrarse</button>
+                    </div> 
+                </div>
+              </nav>
+        </header>
+          <main>
+              <div class="container">
+                  <div class="row mt-3">
+                      <div class="col">
+                          <h2 class="d-flex justify-content-center mb-3 align-items-center title">Carro de Compras</h2>
+                          <form id="procesar-pago" action="#" method="post">      
+                              <div id="carrito" class="form-group table-responsive" >
+                                  <table class="table" id="lista-compra">
+                                      <thead>
+                                          <tr>
+                                              <th scope="col">Nombre</th>
+                                              <th scope="col">Precio</th>
+                                              <th scope="col">Cantidad</th>
+                                              <th scope="col">Sub Total</th>
+                                              <th scope="col">Eliminar</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody id="productos">
+                                            <td>Maceteros</td>
+                                            <td>25000</td>
+                                            <td>1</td>
+                                            <td>25000</td>
+                                            <td style="color: rgb(250, 1, 1)"><i class="fa-solid fa-delete-left ps-4 clickable" id="eliminar"></i></td>
+                                      </tbody>
+                                      <tr>
+                                          <th colspan="3" scope="col">SUB TOTAL</th>
+                                          <th scope="col">
+                                              <p id="subtotal" style="font-weight: normal; color: #838080 ;">25000</p>
+                                          </th>
+                                          <!-- <th scope="col"></th> -->
+                                      </tr>
+                                      <tr>
+                                          <th colspan="3" scope="col">IVA</th>
+                                          <th scope="col">
+                                              <p id="iva" style="font-weight: normal; color: #838080 ;">4750</p>
+                                          </th>
+                                          <!-- <th scope="col"></th> -->
+                                      </tr>
+                                      <tr>
+                                          <th colspan="3" scope="col">TOTAL</th>
+                                          <th scope="col">
+                                              <input id="total" type="text" name="monto" class="font-weight-bold border-0" readonly style="color: #838080" value="29750">
+                                          </th>
+                                          <!-- <th scope="col"></th> -->
+                                      </tr>
+      
+                                  </table>
+                              </div>
+                              <div class="row justify-content-between">
+                                  <div class="col-md-4 mb-2">
+                                      <a href="/" class="btn btn-light">Seguir comprando</a>
+                                  </div>
+                                  <div class="col-xs-12 col-md-4">
+                                      <button type="submit" class="btn btn-success btn-block" id="procesar-compra" style="color: #ffffff">Realizar compra</button>
+                                  </div>
+                              </div>
+                          </form>
+      
+                      </div>
+                  </div>
+              </div>
+          </main>
+
+          <!-- Modal Login-->
+        <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="modalLoginLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header bg-jardin">
+                  <h5 class="modal-title" id="modalLoginLabel" style="color: #ffffff">Iniciar Sesi&oacute;n</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form method="post" action="login">
+                    <div class="form-group">
+                      <label for="InputEmail">Correo Electr&oacute;nico</label>
+                      <input type="email" class="form-control" id="InputEmail" name="email" aria-describedby="emailHelp" placeholder="Ingrese su correo electr&oacute;nico" required><br>
+                      <label for="InputPassword">Contrase&ntilde;a</label>
+                      <input type="password" class="form-control" id="InputPassword" name="password" placeholder="Ingrese su contraseña" required>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
+                      <button type="submit" class="btn btn-success">Iniciar Sesi&oacute;n</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <!--Modal Registro-->
+          <div class="modal fade" id="modalRegistro" tabindex="-1" role="dialog" aria-labelledby="modalRegistroLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header bg-jardin">
+                  <h5 class="modal-title" style="color: #ffffff" id="modalRegistroLabel">Registrarse</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form method="post" action="registrar">
+                    <div class="form-group">
+                      <label for="inputNombre">Nombre</label>
+                      <input type="text" class="form-control" id="inputNombre" name="nombre" placeholder="Ingrese su nombre" required><br>
+                      <label for="inputApellido">Apellido</label>
+                      <input type="text" class="form-control" id="inputApellido" name="apellido" placeholder="Ingrese su apellido" required><br>
+                      <label for="inputRun">Rut</label>
+                      <input type="text" class="form-control" id="inputRun" name="rut" placeholder="Ingrese su rut" required><br>
+                      <label for="InputNewEmail">Correo Electr&oacute;nico</label>
+                      <input type="email" class="form-control" id="InputNewEmail" aria-describedby="emailHelp" name="email" placeholder="Ingrese su correo electr&oacute;nico" required><br>
+                      <label for="InputDireccion">Direcci&oacute;n</label>
+                      <input type="text" class="form-control" id="InputDireccion" name="direccion" placeholder="Ingrese su direcci&oacute;n" required><br>
+                      <label for="InputRegion">Regi&oacute;n</label>
+                      <select class="form-select" id="InputRegion" name="region" required>
+                        <option value="">Seleccione una Regi&oacute;n</option>
+                      </select><br>
+                      <label for="InputComuna">Comuna</label>
+                      <select class="form-select" id="InputComuna" name="comuna" required>
+                        <option value="">Seleccione una Comuna</option>
+                      </select>
+                        <br>
+                      <label for="InputFono">Tel&eacute;fono</label>
+                      <input type="text" class="form-control" id="InputFono" name="fono" placeholder="Ingrese su tel&eacute;fono" required><br>
+                      <label for="InputNewPassword">Contrase&ntilde;a</label>
+                      <input type="password" class="form-control" id="InputNewPassword" name="password" placeholder="Ingrese su contraseña" required><br>
+                      <label for="InputNewPassword2">Confirmar Contrase&ntilde;a</label>
+                      <input type="password" class="form-control" id="InputNewPassword2" name="password2" placeholder="Confirme su contraseña" required><br>
+                      <label for="Suscripción">Suscripción para Donaci&oacute;n a Fundación MiCasa</label>
+                      <input type="checkbox" id="Suscripción" name="suscripcion"><br>
+                      <small>Con la donación de $5.000 mensuales, obtendrás un descuento de 5% en todas tus compras.</small>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
+                      <button type="submit" class="btn btn-success">Registrar</button>
+                    </div>
+                  </form>
+                </div>
+  
+              </div>
+            </div>
+          </div>
+        <!--JS Bootstrap & Popper-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+        <!--Jquery-->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <!--Custom Scripts-->
+        <script type="text/javascript">
+            var cart = "{{ cart|safe }}";
+        </script>
+        <script src="static/scripts/script2.js"></script>
+    </body>
+</html>
+
+
+
