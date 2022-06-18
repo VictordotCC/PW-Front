@@ -1,6 +1,94 @@
-cargarProductos();
+const url = 'http://127.0.0.1:5000';
+localStorage.setItem('url', url);
 
-$(document).ready(function() {
+$(document).ready(function() {   
+    var cart = []; 
+    cargarProductos();
+    
+    function cargarProductos(){
+        
+        $.ajax({
+            url: 'http://127.0.0.1:5000/productos',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data){
+                var productos = data;
+                productos.forEach(function(producto){
+                    var producto_html = 
+                                        `<div class="col ${producto.categoria}">
+                                            <div class="card shadow-sm bg-success ">
+                                                <img src="${url}/static/img/${producto.imagen}" height="225">
+                                        
+                                                <div class="card-body">
+                                                    <p class="card-text text-white" font-color="#ccc">${producto.nombre}</p>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <div class="btn-group">
+                                                            <button type="button" class="btn btn-sm btn-outline-secondary btn-close-white"  data-bs-toggle="modal" data-bs-target="#modalDetalles${producto.id_producto}">Detalles</button>
+                                                            <button type="button" class="btn btn-sm btn-outline-secondary btn-close-white agregar ${producto.categoria} ${producto.codigo}">Agregar</button>
+                                                        </div>
+                                                        <span class="text-muted align-bottom">$${producto.valor_venta.toLocaleString('es-CL')}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>`;
+                    var modal_html =
+                                `<div class="modal fade modal-fullscreen-sm-down " id="modalDetalles${producto.id_producto}" tabindex="-1" role="dialog" aria-labelledby="modalDetallesLabel" aria-hidden="true">
+                                    <div class="modal-dialog " role="img">
+                                        <div class="modal-content">
+                                            <div class="modal-header bg-jardin">
+                                                <h5 class="modal-title" id="modalDetalles" style="color: #ffffff;">Detalles</h5>
+                                            </div>
+                                            <div class="row text-center">
+                                                <p style="color: #95939d">${producto.nombre}</p>
+                                                <div class="modal-body">
+                                                    <div class="lista" >
+                                                        <img src="${url}/static/img/${producto.imagen}"  class="rounded-3" alt="${producto.nombre}" width="300px">
+                                                        <ul class="list-group list-group-flush col-12">
+                                                            <li class="list-group-item" style="color: #95939d">Más Información</li>
+                                                            <li class="list-group-item">${producto.descripcion}</li>
+                                                            <li class="list-group-item">$${producto.valor_venta.toLocaleString('es-CL')}</li>
+                                                        </ul>
+                                                        <div class = "d-flex justify-content-between p-2">
+                                                            <p class="list-group-item" style="color: #95939d">Categoría: ${producto.categoria}</p>
+                                                            <p class="list-group-item" style="color: #95939d">Codigo: ${producto.codigo}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>`;
+                    $('#contenedor-productos').append(producto_html);
+                    $('body').append(modal_html);                    
+                });
+                $('.agregar').click(function(event){
+                    $(this).html('Agregando...');
+                    console.log("agregando");
+                    var classes = $(this).attr('class').split(' ');
+                    cart.push(classes.slice(-1)[0]);
+                    if (cart.length < 10) {
+                        $('#cartItems1').html(cart.length);
+                        $('#cartItems2').html(cart.length);
+                    } else {
+                        $('#cartItems1').html('+');
+                        $('#cartItems2').html('+');
+                    };
+                    window.setTimeout(function(){
+                        $('.agregar').html('Agregar');
+                    }, 1000);
+                });
+            }
+        });
+    };
+
+    $('.carrito').click(function(event){
+        localStorage.setItem('carrito', JSON.stringify(cart));
+        window.location.href = 'carrito.html';
+    });
+
     cargarRegiones();
     $('.nav-link').click(function(event){
             $('.nav-link').removeClass('activo');
@@ -89,7 +177,7 @@ $(document).ready(function() {
         var email = $('#InputEmail').val();
         var pass = $('#InputPassword').val();
         $.ajax({
-            url: '/login',
+            url: `${url}/login`,
             type: 'POST',
             method: 'POST',
             data: {
@@ -97,17 +185,29 @@ $(document).ready(function() {
                 pass: pass
                 },
             success: function(obj, status){
+                localStorage.setItem('user', JSON.stringify(obj)); //modificar como token y obtener datos de usuario por separado
                 $('#inicio-sesion').children().remove();
                 $('#inicio-sesion').append('<div class="d-flex text-center align-items-center pe-3"><h6 style="color: white">Bienvenido, '+obj.primer_nombre+'</h3></div>');
-                $('#inicio-sesion').append('<div class="d-flex d-none d-lg-block"><a class="btn btn-success" aria-current="false" href="perfil/'+obj.id_usuario+'"><i class="fas fa-user-circle"></i></a></div>');
+                $('#inicio-sesion').append('<div class="d-flex d-none d-lg-block"><button id="perfil" type="button" class="btn btn-success" aria-current="false"><i class="fas fa-user-circle"></i></button></div>');
                 $('#inicio-sesion').append('<div class="d-flex d-none d-lg-block"><a class="btn btn-success" aria-current="false" href="/logout" ><i class="fas fa-sign-out-alt"></i></a></div>');
                 $('#modalLogin').modal('toggle');
+
+                $('#perfil').click(function(event){
+                    if (obj.tipo == 'Admin') {
+                        window.location.href = 'administrador.html';
+                    }
+                    else if (obj.tipo == 'Cliente') {
+                        window.location.href = 'usuario.html';
+                    }
+                });
             },
             error: function(obj, status){
                 alert('Usuario o contraseña incorrectos');
             }            
         });
     });
+
+
 
     $('#registrar').click(function(event){
         var nombre = $('#inputNombre').val();
@@ -179,7 +279,7 @@ $(document).ready(function() {
             return false;
         };
         $.ajax({
-            url: '/registrar',
+            url: `${url}/registrar`,
             type: 'POST',
             method: 'POST',
             data: {
@@ -203,69 +303,9 @@ $(document).ready(function() {
             }
         });
     });
+
+
 });
 
-function cargarProductos(){
-    $.ajax({
-        url: '/productos',
-        type: 'GET',
-        dataType: 'json',
-        success: function(data){
-            var productos = data;
-            console.log(typeof(productos));
-            productos.forEach(function(producto){
-                var producto_html = 
-                                    `<div class="col ${producto.categoria}">
-                                        <div class="card shadow-sm bg-success ">
-                                            <img src="static/img/${producto.imagen}" height="225">
-                                    
-                                            <div class="card-body">
-                                                <p class="card-text text-white" font-color="#ccc">${producto.nombre}</p>
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <div class="btn-group">
-                                                        <button type="button" class="btn btn-sm btn-outline-secondary btn-close-white"  data-bs-toggle="modal" data-bs-target="#modalDetalles${producto.id_producto}">Detalles</button>
-                                                        <button type="button" class="btn btn-sm btn-outline-secondary btn-close-white agregar ${producto.categoria} ${producto.codigo}">Agregar</button>
-                                                    </div>
-                                                    <span class="text-muted align-bottom">$${producto.valor_venta.toLocaleString('es-CL')}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>`;
-                var modal_html =
-                            `<div class="modal fade modal-fullscreen-sm-down " id="modalDetalles${producto.id_producto}" tabindex="-1" role="dialog" aria-labelledby="modalDetallesLabel" aria-hidden="true">
-                                <div class="modal-dialog " role="img">
-                                    <div class="modal-content">
-                                        <div class="modal-header bg-jardin">
-                                            <h5 class="modal-title" id="modalDetalles" style="color: #ffffff;">Detalles</h5>
-                                        </div>
-                                        <div class="row text-center">
-                                            <p style="color: #95939d">${producto.nombre}</p>
-                                            <div class="modal-body">
-                                                <div class="lista" >
-                                                    <img src="static/img/${producto.imagen}"  class="rounded-3" alt="${producto.nombre}" width="300px">
-                                                    <ul class="list-group list-group-flush col-12">
-                                                        <li class="list-group-item" style="color: #95939d">Más Información</li>
-                                                        <li class="list-group-item">${producto.descripcion}</li>
-                                                        <li class="list-group-item">$${producto.valor_venta.toLocaleString('es-CL')}</li>
-                                                    </ul>
-                                                    <div class = "d-flex justify-content-between p-2">
-                                                        <p class="list-group-item" style="color: #95939d">Categoría: ${producto.categoria}</p>
-                                                        <p class="list-group-item" style="color: #95939d">Codigo: ${producto.codigo}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>`;
-                $('#contenedor-productos').append(producto_html);
-                $('body').append(modal_html);
-                
-            });
-        }
-    });
-};
+
 

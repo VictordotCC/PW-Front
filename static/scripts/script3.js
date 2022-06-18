@@ -1,17 +1,30 @@
-
-var sumar;
-//AÑADE UN CLICK AL EJECUTAR LA FUNCIÓN
-function agregarCounter() {
-  sumar += 1;
-}
-function restarCounter() {
-  if (sumar > 0) {
-    sumar -= 1;
-  }
-}
-
 //AÑADE A TODOS LOS BOTONES CON EL NAME count_click QUE AL SER PULSADOS EJECUTEN EL CONTADOR
 $( document ).ready(function(){
+
+  const user = JSON.parse(localStorage.getItem('user'));
+  const url = localStorage.getItem('url');
+  
+  //carga info del usuario
+  $('#nombre-usuario').append(user.primer_nombre + ' ' + user.apellido_paterno);
+  $('#direccion').append(user.direccion);
+  $('#fono').append(user.fono);
+  $('#correo').append(user.correo);
+  if (user.tipo == 'Admin') {
+    $('#cargo').append('Administrador');
+  }
+
+
+
+  var sumar;
+  //AÑADE UN CLICK AL EJECUTAR LA FUNCIÓN
+  function agregarCounter() {
+    sumar += 1;
+  }
+  function restarCounter() {
+    if (sumar > 0) {
+      sumar -= 1;
+    }
+  }
   $("#sumar").click(function(){
     sumar = parseInt($("#counter-label").val());
     agregarCounter();
@@ -38,7 +51,7 @@ $( document ).ready(function(){
     }
     else {
       $.ajax({
-        url: "/registrar-producto",
+        url: `${url}/registrar-producto`,
         type: "POST",
         data: formdata,
         contentType: false,

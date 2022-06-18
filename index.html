@@ -24,12 +24,10 @@
                     <span class="navbar-toggler-icon"></span>
                   </button>
                   <a class="navbar-brand" style="color:aliceblue" href="#home">Jardiner&iacute;a Huerto+</a>
-                  <form class="carrito" action="/carrito.html">
-                    <button class="btn btn-success d-lg-none icon-responsive" aria-current="false">
+                    <button type="button" class="btn btn-success d-lg-none icon-responsive carrito" aria-current="false">
                       <i class="fas fa-shopping-cart"></i>
                       <span id="cartItems1" class="badge text-bg-success"></span>
-                    </button>
-                  </form>             
+                    </button>          
                   <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                       <li class="nav-item">
@@ -54,10 +52,10 @@
                       </div>
                     </div>
                     <div class="d-flex d-none d-lg-block">
-                        <a href="carrito.html" type="button" class="btn btn-success" aria-current="false">
-                            <i class="fas fa-shopping-cart"></i>
-                            <span id="cartItems2" class="badge text-bg-success"></span>
-                        </a>
+                        <button type="button" class="btn btn-success carrito" aria-current="false">
+                          <i class="fas fa-shopping-cart"></i>
+                          <span id="cartItems2" class="badge text-bg-success"></span>
+                        </button>  
                     </div>
                   </div>
 
@@ -371,6 +369,5 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <!--Custom Scripts-->
         <script src="static/scripts/script.js"></script>
-        <script src="static/scripts/carrito.js"></script>
       </body>
 </html>
