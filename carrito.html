@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es-CL">
     <head>
-      <!--Configuracion del stilos de los productos-->
+      <!--Configuracion del estilos de los productos-->
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
@@ -16,28 +16,46 @@
         <title>Jardiner&iacute;a  Huerto+</title>
     </head>
     <body style="background-color: white">
-        <header class="fixed-top d-block-flex">
-            <nav class="navbar navbar-dark navbar-expand-lg navbar-light bg-jardin">
-                <div class="container-fluid">
-                  <a class="navbar-brand col-10" style="color:aliceblue" href="index.html">Jardiner&iacute;a Huerto+</a>
-                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <div id = "inicio-sesion" class = "d-flex">
-                      <div class="d-flex row">
-                          <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalLogin">Iniciar Sesi&oacute;n</button>
-                      </div>
-                      <div class="d-flex">
-                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalRegistro">Registrarse</button>
-                      </div> 
-                    </div>
+      <header class="fixed-top d-block-flex">
+        <nav class="navbar navbar-dark navbar-expand-lg navbar-light bg-jardin">
+            <div class="container-fluid">
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <a class="navbar-brand" style="color:aliceblue" href="index.html#home">Jardiner&iacute;a Huerto+</a>         
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link navitem" aria-current="page" href="index.html#productos">Productos</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link navitem" aria-current="page" href="index.html#seguimiento">Seguimiento</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link navitem" aria-current="page" href="index.html#nosotros">Nosotros</a>   
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link navitem" aria-current="page" href="index.html#contacto">Contacto</a>
+                  </li>
+                </ul>
+                <div id= "inicio-sesion" class="d-flex">
+                  <div class="d-flex">
+                      <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalLogin">Iniciar Sesi&oacute;n</button>
+                  </div>
+                  <div class="d-flex">
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalRegistro">Registrarse</button>
                   </div>
                 </div>
-              </nav>
-        </header>
+              </div>
+
+            </div>
+          </nav>
+    </header>
           <main>
               <div class="container">
                   <div class="row mt-3">
                       <div class="col">
-                          <h2 class="d-flex justify-content-center mb-3 align-items-center title">Carro de Compras</h2>
+                          <h2 class="d-flex justify-content-center mt-3 mb-3 align-items-center title">Carro de Compras</h2>
                           <form id="procesar-pago" action="#" method="post">      
                               <div id="carrito" class="form-group table-responsive" >
                                   <table class="table" id="lista-compra">
@@ -51,11 +69,6 @@
                                           </tr>
                                       </thead>
                                       <tbody id="productos">
-                                            <td>Maceteros</td>
-                                            <td>25000</td>
-                                            <td>1</td>
-                                            <td>25000</td>
-                                            <td style="color: rgb(250, 1, 1)"><i class="fa-solid fa-delete-left ps-4 clickable" id="eliminar"></i></td>
                                       </tbody>
                                       <tr>
                                           <th colspan="3" scope="col">SUB TOTAL</th>
