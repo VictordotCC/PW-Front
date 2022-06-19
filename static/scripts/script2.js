@@ -3,7 +3,6 @@ $(document).ready(function() {
 
 
     var carrito = JSON.parse(localStorage.getItem('carrito'));
-    console.log(carrito);
 
     $.ajax({
         url: `${url}/carrito`,
@@ -15,7 +14,7 @@ $(document).ready(function() {
             var subtotal = 0;
             var iva;
             var total;
-
+            
             data.forEach(function(producto) {
                 product_html = 
                 `   <tr><td scope="col">${producto.nombre}</td>
@@ -23,6 +22,7 @@ $(document).ready(function() {
                     <td scope="col">${producto.cantidad}</td>
                     <td scope="col">$${(producto.valor_venta * producto.cantidad).toLocaleString('es-CL')}</td>
                     <td scope="col" style="color: rgb(250, 1, 1)"><i class="fa-solid fa-delete-left ps-4 clickable eliminar"></i></td>
+                    <td><input type="hidden" name="codigo" value="${producto.codigo}"></td>
                     </tr>`;
                 $('#productos').append(product_html);
                 subtotal += producto.valor_venta * producto.cantidad;
@@ -40,10 +40,24 @@ $(document).ready(function() {
                 $('#iva').text("$"+ iva.toLocaleString('es-CL'));
                 total = subtotal + iva;
                 $('#total').text("$"+ total.toLocaleString('es-CL'));
+                item = $(this).parent().parent().children().eq(5).children().val();
+                // remove all ocurrences of the item from the cart
+                carrito = carrito.filter(function(element) {
+                    return element!= item;
+                    });
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+                    
+                if ($('#productos').children().length == 0) {
+                    $('#productos').append('<tr><td colspan="7" style="text-align: center;">No hay productos en el carrito</td></tr>');
+                }
             });
             
 
-        }     
+        },
+        error: function(error) {
+            product_html = '<tr><td colspan="7" style="text-align: center;">No hay productos en el carrito</td></tr>';
+            $('#productos').append(product_html);
+            }    
     });
 
 

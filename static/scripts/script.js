@@ -1,8 +1,26 @@
 const url = 'http://127.0.0.1:5000';
 localStorage.setItem('url', url);
 
-$(document).ready(function() {   
-    var cart = []; 
+$(document).ready(function() { 
+    
+    try {
+        var cart = JSON.parse(localStorage.getItem('carrito'));
+        console.log(cart.length); 
+        if (cart.length > 0) {
+            $('#cartItems1').html(cart.length);
+            $('#cartItems2').html(cart.length);
+        } else if (cart.lenght < 10) {
+            $('#cartItems1').html('+');
+            $('#cartItems2').html('+');
+        } else {
+            $('#cartItems1').html('');
+            $('#cartItems2').html('');
+
+        };
+    } catch (error) {
+        var cart = [];
+    }
+     
     cargarProductos();
     
     function cargarProductos(){
@@ -66,12 +84,15 @@ $(document).ready(function() {
                 });
                 $('.agregar').click(function(event){
                     $(this).html('Agregando...');
-                    console.log("agregando");
                     var classes = $(this).attr('class').split(' ');
                     cart.push(classes.slice(-1)[0]);
+                    localStorage.setItem('carrito', JSON.stringify(cart));
                     if (cart.length < 10) {
                         $('#cartItems1').html(cart.length);
                         $('#cartItems2').html(cart.length);
+                    } else if (cart.lenght == 0) {
+                        $('#cartItems1').html('');
+                        $('#cartItems2').html('');
                     } else {
                         $('#cartItems1').html('+');
                         $('#cartItems2').html('+');
@@ -83,11 +104,6 @@ $(document).ready(function() {
             }
         });
     };
-
-    $('.carrito').click(function(event){
-        localStorage.setItem('carrito', JSON.stringify(cart));
-        window.location.href = 'carrito.html';
-    });
 
     cargarRegiones();
     $('.nav-link').click(function(event){
