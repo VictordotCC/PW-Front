@@ -3,7 +3,7 @@ $(document).ready(function() {
 
 
     var carrito = JSON.parse(localStorage.getItem('carrito'));
-
+    
     $.ajax({
         url: `${url}/carrito`,
         type: 'POST',
@@ -50,8 +50,7 @@ $(document).ready(function() {
                 if ($('#productos').children().length == 0) {
                     $('#productos').append('<tr><td colspan="7" style="text-align: center;">No hay productos en el carrito</td></tr>');
                 }
-            });
-            
+            });       
 
         },
         error: function(error) {
