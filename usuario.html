@@ -40,18 +40,20 @@
             </div>
             <div class="perfil-usuario-footer">
                 <ul class="lista-datos">
-                    <li><i class="icono fas fa-map-signs"></i> Direccion de usuario:</li>
-                    <li><i class="icono fas fa-phone-alt"></i> Telefono:</li>
-                    <li><i class="icono fas fa-briefcase"></i> Trabaja en.</li>
-                    <li><i class="icono fas fa-building"></i> Cargo</li>
+                    <li><i class="icono fas fa-user-check"></i> Nombre:</li>
+                    <li><i class="icono fas fa-user-check"></i> Apellido:</li>
+                    <li><i class="icono fas fa-user-check"></i> RUT:</li>
+                  </tbody>
+                    
                 </ul>
                 <ul class="lista-datos">
-                    <li><i class="icono fas fa-map-marker-alt"></i> Ubicacion.</li>
-                    <li><i class="icono fas fa-calendar-alt"></i> Fecha nacimiento.</li>
-                    <li><i class="icono fas fa-user-check"></i> Registro.</li>
-                    <li><i class="icono fas fa-share-alt"></i> Redes sociales.</li>
+                    <li><i class="icono fas fa-map-signs"></i> Direccion de usuario:</li>
+                    <li><i class="icono fas fa-user-check"></i> Correo:</li>
+                    <li><i class="icono fas fa-phone-alt"></i> Telefono:</li>
                 </ul>
-
+                <div class="d-flex">
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalEditar">Editar</button>
+                  </div>
             </div>
             <table class="table" id="lista-compra">
                 <thead>
@@ -69,30 +71,6 @@
                       <td>2000</td>
                       <td>1</td>
                       <td>2000</td>
-                </tbody>
-                <tbody id="tijeras">
-                    <td>Tijeras de podar para jardín GRÜNTEK</td>
-                    <td>05/05/2022</td>
-                    <td>25000</td>
-                    <td>1</td>
-                    <td>25000</td>
-                    
-                </tbody>
-                <tbody id="Bolsa">
-                    <td>Bolsa de tela bellota porta herramientas de jardin</td>
-                    <td>01/01/2021</td>
-                    <td>10000</td>
-                    <td>1</td>
-                    <td>10000</td>
-                   
-                </tbody>
-                <tbody id="Maceta Groot">
-                    <td>Maceta de flores Baby Groot para decoración del hogar</td>
-                    <td>25/05/2022</td>
-                    <td>50000</td>
-                    <td>1</td>
-                    <td>50000</td>
-                    
                 </tbody>
                 <tr>
                     <th colspan="3" scope="col">IVA</th>
@@ -121,13 +99,50 @@
         </div>
     </section>
 
+     <!--Modal de Edicion de usuario-->
+
+    <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="modalEditarLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header bg-jardin">
+              <h5 class="modal-title" style="color: #ffffff" id="modalEditarLabel">Informacion de Usuario</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id = "form-editar">
+                <div class="form-group">
+                  <label for="inputNombre">Nombre</label>
+                  <input type="text" class="form-control" id="inputNombre" name="nombre" placeholder="Nuevo nombre" required><br>
+                  <label for="inputApellido">Apellido</label>
+                  <input type="text" class="form-control" id="inputApellido" name="apellido" placeholder="Nuevo apellido" required><br>
+                  <label for="inputRun">Rut</label>
+                  <input type="text" class="form-control" id="inputRun" name="rut" placeholder="Ej: 12.345.678-9" required><br>
+                  <label for="InputDireccion">Direcci&oacute;n</label>
+                  <input type="text" class="form-control" id="InputDireccion" name="direccion" placeholder="Ingrese nueva direcci&oacute;n" required><br>
+                  <label for="InputNewEmail">Correo Electr&oacute;nico</label>
+                  <input type="email" class="form-control" id="InputNewEmail" aria-describedby="emailHelp" name="email" placeholder="Ingrese su Nuevo correo electr&oacute;nico" required><br>
+                  <label for="InputFono">Tel&eacute;fono</label>
+                  <input type="text" class="form-control" id="InputFono" name="fono" placeholder="Ingrese su Nuevo tel&eacute;fono" required><br>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
+                  <button type="button" class="btn btn-success" id="registrar">Guardar</button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
 
     <!--JS Bootstrap & Popper-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <!--Jquery-->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!--Custom Scripts-->
-    <script></script>
+    <script src="static/scripts/script4.js"></script>
 
 </body>
 
