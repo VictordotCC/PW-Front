@@ -103,7 +103,7 @@
                                       <a href="index.html" class="btn btn-light">Seguir comprando</a>
                                   </div>
                                   <div class="col-xs-12 col-md-4">
-                                      <button id="btn-pagar" type="button" class="btn btn-success btn-block" style="color: #ffffff" data-bs-toggle="modal" data-bs-target="#modalCompra">Realizar compra</button>
+                                      <button id="btn-pagar" type="button" class="btn btn-success btn-block" data-bs-toggle="modal" data-bs-target="#modalCompra">Realizar compra</button>
                                   </div>
                               </div>
                           </form>
@@ -115,81 +115,81 @@
 
           <!-- Modal Login-->
         <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="modalLoginLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header bg-jardin">
-                  <h5 class="modal-title" id="modalLoginLabel" style="color: #ffffff">Iniciar Sesi&oacute;n</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <form method="post" action="login">
-                    <div class="form-group">
-                      <label for="InputEmail">Correo Electr&oacute;nico</label>
-                      <input type="email" class="form-control" id="InputEmail" name="email" aria-describedby="emailHelp" placeholder="Ingrese su correo electr&oacute;nico" required><br>
-                      <label for="InputPassword">Contrase&ntilde;a</label>
-                      <input type="password" class="form-control" id="InputPassword" name="password" placeholder="Ingrese su contraseña" required>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
-                      <button type="submit" class="btn btn-success">Iniciar Sesi&oacute;n</button>
-                    </div>
-                  </form>
-                </div>
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header bg-jardin">
+                <h5 class="modal-title" id="modalLoginLabel" style="color: #ffffff">Iniciar Sesi&oacute;n</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="InputEmail">Correo Electr&oacute;nico</label>
+                    <input type="email" class="form-control" id="InputEmail" name="email" aria-describedby="emailHelp" placeholder="Ingrese su correo electr&oacute;nico" required><br>
+                    <label for="InputPassword">Contrase&ntilde;a</label>
+                    <input type="password" class="form-control" id="InputPassword" name="password" placeholder="Ingrese su contraseña" required>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
+                    <button id="loguear" type="button" class="btn btn-success">Iniciar Sesi&oacute;n</button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
-  
-          <!--Modal Registro-->
-          <div class="modal fade" id="modalRegistro" tabindex="-1" role="dialog" aria-labelledby="modalRegistroLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header bg-jardin">
-                  <h5 class="modal-title" style="color: #ffffff" id="modalRegistroLabel">Registrarse</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <form method="post" action="registrar">
-                    <div class="form-group">
-                      <label for="inputNombre">Nombre</label>
-                      <input type="text" class="form-control" id="inputNombre" name="nombre" placeholder="Ingrese su nombre" required><br>
-                      <label for="inputApellido">Apellido</label>
-                      <input type="text" class="form-control" id="inputApellido" name="apellido" placeholder="Ingrese su apellido" required><br>
-                      <label for="inputRun">Rut</label>
-                      <input type="text" class="form-control" id="inputRun" name="rut" placeholder="Ingrese su rut" required><br>
-                      <label for="InputNewEmail">Correo Electr&oacute;nico</label>
-                      <input type="email" class="form-control" id="InputNewEmail" aria-describedby="emailHelp" name="email" placeholder="Ingrese su correo electr&oacute;nico" required><br>
-                      <label for="InputDireccion">Direcci&oacute;n</label>
-                      <input type="text" class="form-control" id="InputDireccion" name="direccion" placeholder="Ingrese su direcci&oacute;n" required><br>
-                      <label for="InputRegion">Regi&oacute;n</label>
-                      <select class="form-select" id="InputRegion" name="region" required>
-                        <option value="">Seleccione una Regi&oacute;n</option>
-                      </select><br>
-                      <label for="InputComuna">Comuna</label>
-                      <select class="form-select" id="InputComuna" name="comuna" required>
-                        <option value="">Seleccione una Comuna</option>
-                      </select>
-                        <br>
-                      <label for="InputFono">Tel&eacute;fono</label>
-                      <input type="text" class="form-control" id="InputFono" name="fono" placeholder="Ingrese su tel&eacute;fono" required><br>
-                      <label for="InputNewPassword">Contrase&ntilde;a</label>
-                      <input type="password" class="form-control" id="InputNewPassword" name="password" placeholder="Ingrese su contraseña" required><br>
-                      <label for="InputNewPassword2">Confirmar Contrase&ntilde;a</label>
-                      <input type="password" class="form-control" id="InputNewPassword2" name="password2" placeholder="Confirme su contraseña" required><br>
-                      <label for="Suscripción">Suscripción para Donaci&oacute;n a Fundación MiCasa</label>
-                      <input type="checkbox" id="Suscripción" name="suscripcion"><br>
-                      <small>Con la donación de $5.000 mensuales, obtendrás un descuento de 5% en todas tus compras.</small>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
-                      <button type="submit" class="btn btn-success">Registrar</button>
-                    </div>
-                  </form>
-                </div>
-  
-              </div>
-            </div>
-          </div>
+        </div>
 
+        <!--Modal Registro-->
+        <div class="modal fade" id="modalRegistro" tabindex="-1" role="dialog" aria-labelledby="modalRegistroLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header bg-jardin">
+                <h5 class="modal-title" style="color: #ffffff" id="modalRegistroLabel">Registrarse</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form id = "form-registro">
+                  <div class="form-group">
+                    <label for="inputNombre">Nombre</label>
+                    <input type="text" class="form-control" id="inputNombre" name="nombre" placeholder="Ingrese su nombre" required><br>
+                    <label for="inputApellido">Apellido</label>
+                    <input type="text" class="form-control" id="inputApellido" name="apellido" placeholder="Ingrese su apellido" required><br>
+                    <label for="inputRun">Rut</label>
+                    <input type="text" class="form-control" id="inputRun" name="rut" placeholder="Ej: 12.345.678-9" required><br>
+                    <label for="InputNewEmail">Correo Electr&oacute;nico</label>
+                    <input type="email" class="form-control" id="InputNewEmail" aria-describedby="emailHelp" name="email" placeholder="Ingrese su correo electr&oacute;nico" required><br>
+                    <label for="InputDireccion">Direcci&oacute;n</label>
+                    <input type="text" class="form-control" id="InputDireccion" name="direccion" placeholder="Ingrese su direcci&oacute;n" required><br>
+                    <label for="InputRegion">Regi&oacute;n</label>
+                    <select class="form-select" id="InputRegion" name="region" required>
+                      <option value="">Seleccione una Regi&oacute;n</option>
+                    </select><br>
+                    <label for="InputComuna">Comuna</label>
+                    <select class="form-select" id="InputComuna" name="comuna" required>
+                      <option value="">Seleccione una Comuna</option>
+                    </select>
+                      <br>
+                    <label for="InputFono">Tel&eacute;fono</label>
+                    <input type="text" class="form-control" id="InputFono" name="fono" placeholder="Ingrese su tel&eacute;fono" required><br>
+                    <label for="InputNewPassword">Contrase&ntilde;a</label>
+                    <input type="password" class="form-control" id="InputNewPassword" name="password" placeholder="Ingrese su contraseña" required><br>
+                    <label for="InputNewPassword2">Confirmar Contrase&ntilde;a</label>
+                    <input type="password" class="form-control" id="InputNewPassword2" name="password2" placeholder="Confirme su contraseña" required><br>
+                    <label for="Suscripción">Suscripción para Donaci&oacute;n a Fundación MiCasa</label>
+                    <input type="checkbox" id="Suscripcion" name="suscripcion"><br>
+                    <small>Con la donación de $5.000 mensuales, obtendrás un descuento de 5% en todas tus compras.</small>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success" id="registrar">Registrar</button>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+ 
           <!-- Modal Compra-->
           <div class="modal fade" id="modalCompra" tabindex="-1" role="dialog" aria-labelledby="modalCompraLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -198,15 +198,12 @@
                   <h5 class="modal-title" style="color: #ffffff" id="modalCompraLabel">Compra</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                  <div id="información" class="d-flex">
-                    
-
-                  </div>
+                <div id = "info" class="modal-body">
+                      
                 </div>
                 <div class="modal-footer">
                       <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
-                      <button type="button" class="btn btn-success">Confirmar Pago</button>
+                      <button id="confirmar" type="button" class="btn btn-success">Confirmar Pago</button>
                 </div>
               </div>
             </div>
@@ -221,6 +218,7 @@
             var cart = "{{ cart|safe }}";
         </script>
         <script src="static/scripts/script2.js"></script>
+        <script src="static/scripts/manage.js"></script>
     </body>
 </html>
 
