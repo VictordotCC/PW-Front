@@ -1,4 +1,4 @@
-console.log("hola");
+
 
 $( document ).ready(function(){
 
@@ -13,7 +13,10 @@ $( document ).ready(function(){
     $('#direccion').append(user.direccion);
     $('#correo').append(user.correo);
     $('#fono').append(user.fono);
-
+    if(user.tipo == 'user'){
+        $('#cargo').append('Usuario');
+    }
+    console.log(user);
     
 });
  
