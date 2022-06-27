@@ -1,3 +1,39 @@
+$(document).ready(function() {
+    user = localStorage.getItem('user');
+    if (user != 'null') {
+        user = JSON.parse(user);
+        $('#inicio-sesion').children().remove();
+        $('#inicio-sesion').append('<div class="d-flex text-center align-items-center pe-3"><h6 style="color: white">Bienvenido, '+user.primer_nombre+'</h3></div>');
+        $('#inicio-sesion').append('<div class="d-flex d-none d-lg-block"><button id="perfil" type="button" class="btn btn-success" aria-current="false"><i class="fas fa-user-circle"></i></button></div>');
+        $('#inicio-sesion').append('<div class="d-flex d-none d-lg-block"><button id="cerrar-sesion" type="button" class="btn btn-success" aria-current="false"><i class="fas fa-sign-out-alt"></i></button></div>');
+
+        $('#perfil').click(function(event){
+            if (user.tipo == 'Admin') {
+                window.location.href = 'administrador.html';
+            }
+            else if (user.tipo == 'Cliente') {
+                window.location.href = 'usuario.html';
+            }
+        });
+
+        $('#cerrar-sesion').click(function(event){
+            localStorage.setItem('user', null);
+            $('#inicio-sesion').children().each(function(index){
+                $(this).remove();
+            });
+            login_original = `<div class="d-flex">
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalLogin">Iniciar Sesi&oacute;n</button>
+                            </div>
+                            <div class="d-flex">
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalRegistro">Registrarse</button>
+                            </div>`;
+            $('#inicio-sesion').append(login_original);          
+        });
+    }
+});
+
+
+
 $('#loguear').click(function(event){
     var email = $('#InputEmail').val();
     var pass = $('#InputPassword').val();
@@ -10,7 +46,7 @@ $('#loguear').click(function(event){
             pass: pass
             },
         success: function(obj, status){
-            localStorage.setItem('user', JSON.stringify(obj)); //modificar como token y obtener datos de usuario por separado
+            localStorage.setItem('user', JSON.stringify(obj));
             $('#inicio-sesion').children().remove();
             $('#inicio-sesion').append('<div class="d-flex text-center align-items-center pe-3"><h6 style="color: white">Bienvenido, '+obj.primer_nombre+'</h3></div>');
             $('#inicio-sesion').append('<div class="d-flex d-none d-lg-block"><button id="perfil" type="button" class="btn btn-success" aria-current="false"><i class="fas fa-user-circle"></i></button></div>');
@@ -118,7 +154,6 @@ $('#registrar').click(function(event){
     $.ajax({
         url: `${url}/registrar`,
         type: 'POST',
-        method: 'POST',
         data: {
             nombre: nombre,
             apellido: apellido,
