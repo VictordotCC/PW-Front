@@ -199,7 +199,6 @@ $(document).ready(function() {
                         }
                     });
                 }
-                console.log(carrito);
                 $.ajax({
                     url: `${url}/comprar`,
                     type: 'POST',
@@ -212,9 +211,35 @@ $(document).ready(function() {
                         carrito: carrito
                     },
                     success: function(data) {
-                        console.log(data);
+                        alert('Compra realizada con éxito');
+                        $('.modal').modal('hide');
+                        localStorage.setItem('carrito', JSON.stringify([]));     
+                        $('#productos').children().remove();
+                        $('#eliminar').remove();
+                        $('.title').text('Detalle Boleta');
+                        data.forEach(function(item) {
+                            if (item.nombre == 'undefined' || item.nombre == null) {
+                                $('#subtotal').text("$"+ item.subtotal.toLocaleString('es-CL'));
+                                $('#iva').text("$"+ item.iva.toLocaleString('es-CL'));
+                                $('#total').text("$"+ item.total.toLocaleString('es-CL'));
+                                voucher_html = `<th>Número de Voucher</th>
+                                                <td>${item.voucher}</td>`;
+                                $('#voucher').append(voucher_html);
+                                seguimiento_html = `<th>Número de Seguimiento</th>
+                                                <td>${item.id_despacho}</td>`;
+                                $('#seguimiento').append(seguimiento_html);
+                                $('#btn-pagar').remove();
+                            } else {
+                                product_html = 
+                                `   <tr><td scope="col">${item.nombre}</td>
+                                    <td scope="col">$${item.valor_unitario.toLocaleString('es-CL')}</td>
+                                    <td scope="col">${item.cantidad}</td>
+                                    <td scope="col">$${(item.valor_total).toLocaleString('es-CL')}</td>
+                                    </tr>`;
+                                $('#productos').append(product_html);                                
+                            }
+                        });
                     }
-
                 });
             });
         },

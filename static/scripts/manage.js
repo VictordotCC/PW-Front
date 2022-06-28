@@ -27,7 +27,12 @@ $(document).ready(function() {
                             <div class="d-flex">
                                 <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalRegistro">Registrarse</button>
                             </div>`;
-            $('#inicio-sesion').append(login_original);          
+            $('#inicio-sesion').append(login_original);
+            console.log(window.location.href);
+            if (window.location.href.includes('administrador.html') || window.location.href.includes('usuario.html')) {
+                
+                window.location.replace('index.html');                
+            }
         });
     }
 });
