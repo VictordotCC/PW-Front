@@ -3,6 +3,7 @@ $( document ).ready(function(){
 
   const user = JSON.parse(localStorage.getItem('user'));
   const url = localStorage.getItem('url');
+  localStorage.setItem('url', url);
   
   //carga info del usuario
   $('#nombre-usuario').append(user.primer_nombre + ' ' + user.apellido_paterno);
@@ -13,8 +14,34 @@ $( document ).ready(function(){
     $('#cargo').append('Administrador');
   }
 
+  //cargar productos
+    tabla_producto();
+    
+  
+  function tabla_producto(){
+    $.ajax({
+      url: `${url}/productos`,
+      type: 'GET',
+      dataType: 'json',
+      success: function(data){
+        data.forEach (function(producto){
+          var product_html;
+          product_html = 
+                `   <tr><td  class="col-6">${producto.nombre}</td>
+                        <td style="color:rgb(12, 97, 36)"><i class="fa-solid fa-edit clickable" id="editar"></i></td>
+                        <td  class="col-2">${producto.valor_venta}</td>
+                        <td class="input-group"><input id="counter-label" type="number" class="form-control" value="0">
+                    </tr>`;
+                $('#tabla_productos').append(product_html);
+                });
+        }
+       
+      }
+    )};
+  
 
-
+  
+  
   var sumar;
   //AÑADE UN CLICK AL EJECUTAR LA FUNCIÓN
   function agregarCounter() {
@@ -76,6 +103,10 @@ $( document ).ready(function(){
     }
   });
 
+
+
+  
+  
 
   //Actualizar Stock
 });
