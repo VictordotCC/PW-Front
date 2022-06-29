@@ -69,39 +69,39 @@
                     </div>
                 </div>
             </section>
-                <!-- Sección Productos-->
-                <section>
-                    <div id="tabla-productos" class="container">
-                        <h2 class="text-center" style="padding-top: 5px;">Productos</h2>
-                        <table class="table align-middle">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col"></th>
-                                    <th scope="col">Valor</th>
-                                    <th scope="col">Stock</th>
-                                    <th scope="col">Eliminar</th>
-                                </tr>
-                            </thead>
-                            <tbody id="productos"> 
-                                <td  class="col-6">  </td>
-                                <td style="color:rgb(12, 97, 36)"><i class="fa-solid fa-edit clickable" id="editar"></i></td>
-                                <td  class="col-2">  </td>
-                                <td class="input-group"><input id="counter-label" type="number" class="form-control" value="0">
-                                    <!--<div class="input-group-append">
-                                        <button id ="sumar" type="button" class="btn btn-outline-success">+</button>
-                                        <button id ="restar"type="button" class="btn btn-outline-danger">-</button>
-                                    </div>
-                                </td>
-                                <td style="color: rgb(250, 1, 1)"><i class="fa-solid fa-delete-left ps-4 clickable" id="eliminar"></i></td>
-                            </tbody>-->
-                        </table>
-                    </div>
-                    <div class="text-center col-md-12 mb-2">
-                        <a href="#" class="btn btn-success">Actualizar Stock</a>
-                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalRegistroProducto">Registrar Producto</button>
-                    </div>
-                </section>
+            <!-- Sección Productos-->
+            <div class="container">
+                  <div class="row mt-3 justify-content-center">
+                      <div class="col">
+                          <h2 class="d-flex justify-content-center mt-3 mb-3 align-items-center title">Productos</h2>
+                          <!--<form id="procesar-pago" action="#" method="post">-->
+                              <div id="carrito" class="form-group table-responsive" >
+                                  <table class="table" id="lista-compra">
+                                      <thead>
+                                          <tr>
+                                              <th scope="col">Nombre</th>
+                                              <th scope="col">Categoría</th>
+                                              <th scope="col">Valor</th>
+                                              <th scope="col">Stock</th>
+                                              <th scope="col" id="eliminar">Acciones</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody id="productos">
+                                      </tbody>
+
+                                  </table>
+                              </div>
+                              <div class="row justify-content-between">
+                                  <div class="col-xs-12 col-md-4">
+                                      <button type="button" class="btn btn-success btn-block" data-bs-toggle="modal" data-bs-target="#modalRegistroProducto">Agregar Producto</button>
+                                  </div>
+                              </div>
+                          <!--</form>-->
+                      </div>
+                  </div>  
+              </div>
+
+            
         </main>
 
         <!--Ventanas Modales-->
@@ -148,6 +148,51 @@
             </div>
           </div>
 
+          <!--Modal de Edicion de Producto-->
+
+        <div class="modal fade" id="modalEdicionProducto" tabindex="-1" role="dialog" aria-labelledby="modalEdicionProductoLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header bg-jardin">
+                <h5 class="modal-title" id="modalEdicionLabel" style="color: #ffffff">Editar el Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form id="formularioEdit" enctype="multipart/form-data">
+                  <div class="form-group">
+                      <div class="mb-3">
+                              <input type="hidden" class="form-control" id="id_editproducto" name="id_producto">
+                              <label for="edit_producto">Nombre del Producto</label>
+                              <input type="text" class="form-control" id="edit_producto" name="edit_prod" placeholder="Ingrese nombre del Producto" required><br>
+                              <label for="editDescripcion">Descripcion</label>
+                              <textarea class="form-control" id="editDescripcion" name="edit_desc" rows="3" placeholder="Ingrese descripcion del Producto" required></textarea><br>
+                              <label for="editCategoria">Categoria</label>
+                              <select class="form-select" id="editCategoria" name="edit_cat" required>
+                                  <option value="">Seleccione una categoria</option>
+                                  <option value="Servicios">Servicios</option>
+                                  <option value="Herramientas">Herramientas</option>
+                                  <option value="Productos">Productos</option>
+                              </select><br>
+                              <label for="editPrecio">Precio del producto</label>
+                              <input type="number" class="form-control" id="editPrecio" name="edit_precio" placeholder="10000" required><br>
+                              <label for="editStock">Ingrese Stock</label>
+                              <input type="number" class="form-control" id="editStock" name="edit_stock" placeholder="0" required><br>
+                              <label for="imagenActual">Imagen Actual</label><br>
+                              <img id="imagenActual" width="300px"><br>
+                              <label for="formEditFile" class="form-label">Cambiar Imagen</label>
+                              <input class="form-control" type="file" accept="image/*" name="edit_file" id="formEditFile">
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
+                    <button id="editarProducto" type="button" class="btn btn-success">Guardar</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
 
 
         <!--JS Bootstrap & Popper-->
@@ -155,12 +200,6 @@
         <!--Jquery-->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
         <!--Custom Scripts-->
-        <script type="text/javascript">
-            $(document).ready(function(){
-
-
-            });
-        </script>
         <script src="static/scripts/script3.js"></script>
         <script src="static/scripts/manage.js"></script>
     </body>

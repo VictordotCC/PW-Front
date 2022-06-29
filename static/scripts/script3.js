@@ -15,10 +15,11 @@ $( document ).ready(function(){
   }
 
   //cargar productos
-    tabla_producto();
+  tabla_producto();
     
   
   function tabla_producto(){
+    $('#productos').empty();
     $.ajax({
       url: `${url}/productos`,
       type: 'GET',
@@ -27,44 +28,84 @@ $( document ).ready(function(){
         data.forEach (function(producto){
           var product_html;
           product_html = 
-                `   <tr><td  class="col-6">${producto.nombre}</td>
-                        <td style="color:rgb(12, 97, 36)"><i class="fa-solid fa-edit clickable" id="editar"></i></td>
-                        <td  class="col-2">${producto.valor_venta}</td>
-                        <td class="input-group"><input id="counter-label" type="number" class="form-control" value="0">
-                    </tr>`;
-                $('#tabla_productos').append(product_html);
+                `<tr>
+                <input id="idProducto" type="hidden" value="${producto.id_producto}">
+                <td scope="col">${producto.nombre}</td>
+                <td scope="col">${producto.categoria}</td>
+                <td scope="col">$${producto.valor_venta.toLocaleString('es-CL')}</td>
+                <td scope="col">${producto.stock}</td>
+                <td scope="col" style="color:rgb(12, 97, 36)"><i class="fa-solid fa-edit clickable pe-2 editar"></i>
+                <span scope="col" style="color: rgb(250, 1, 1)"><i class="fa-solid fa-delete-left ps-2 clickable eliminar"></i></span></td>
+                </tr>`;
+                $('#productos').append(product_html);
+                });
+
+                //editar producto
+                $('.editar').click(function(){
+                  var id_producto = $(this).closest('tr').find('#idProducto').val();
+                  $.ajax({
+                    url: `${url}/producto/${id_producto}`,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data){
+                      $('#modalEdicionProducto').modal('show');
+                      $('#id_editproducto').val(id_producto);
+                      $('#edit_producto').val(data.nombre);
+                      $('#editDescripcion').val(data.descripcion);
+                      $('#editCategoria').val(data.categoria);
+                      $('#editPrecio').val(data.valor_venta);
+                      $('#editStock').val(data.stock);
+                      $('#imagenActual').attr('src', `${url}/static/img/${data.imagen}`);
+                    }         
+                  });                  
+                });
+
+                //eliminar producto
+                $('.eliminar').click(function(){
+                  var id_producto = $(this).closest('tr').find('#idProducto').val();
+                  $.ajax({
+                    url: `${url}/producto/${id_producto}`,
+                    type: 'DELETE',
+                    success: function(data){
+                      tabla_producto();
+                    }
+                  });
+                });
+
+                //editar producto
+                $('#editarProducto').click(function(){
+                  var id_producto = $("#id_editproducto").val();
+                  var nombre = $("#edit_producto").val();
+                  var descripcion = $("#editDescripcion").val();
+                  var categoria = $("#editCategoria").val();
+                  var precio = $("#editPrecio").val();
+                  var stock = $("#editStock").val();
+                  //TODO: que hacer con imagen
+                  //var imagen = $("#formEditFile").get(0).files.length;
+                  var formdata = new FormData($("#formularioEdit")[0]);
+                  if (nombre == "" || descripcion == "" || categoria == "" || precio == "" || stock == "") {
+                    alert("Todos los campos son obligatorios");
+                  }
+                  else {
+                    $.ajax({
+                      url: `${url}/producto/${id_producto}`,
+                      type: 'PUT',
+                      data: formdata,
+                      contentType: false,
+                      processData: false,
+                      success: function(data){
+                        $('#modalEdicionProducto').modal('hide');
+                        tabla_producto();
+                      }
+                    });
+                  }
                 });
         }
        
       }
     )};
-  
 
-  
-  
-  var sumar;
-  //AÑADE UN CLICK AL EJECUTAR LA FUNCIÓN
-  function agregarCounter() {
-    sumar += 1;
-  }
-  function restarCounter() {
-    if (sumar > 0) {
-      sumar -= 1;
-    }
-  }
-  $("#sumar").click(function(){
-    sumar = parseInt($("#counter-label").val());
-    agregarCounter();
-    $("#counter-label").val(sumar);
-  });
-  
-  $("#restar").click(function(){
-    sumar = parseInt($("#counter-label").val());
-    restarCounter();
-    $("#counter-label").val(sumar);
-  });
-
-  $("#Registrar_Producto").click(function(){
+    $("#Registrar_Producto").click(function(){
     var nombre = $("#n_producto").val();
     var descripcion = $("#inputDescripcion").val();
     var categoria = $("#inputCategoria").val();
@@ -82,7 +123,6 @@ $( document ).ready(function(){
         type: "POST",
         data: formdata,
         contentType: false,
-        cache: false,
         processData: false,
         success: function(data) {
           $("#formulario").trigger("reset");
