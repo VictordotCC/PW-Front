@@ -68,7 +68,7 @@ $(document).ready(function() {
                                     <label for="email">Email</label>
                                     <input type="text" class="form-control" id="email" placeholder="Email">
                                     <label for="Direccion">Direccion</label>
-                                    <input type="text" class="form-control" id="direccion" placeholder="Direccion">
+                                    <input type="text" class="form-control" id="Direccion" placeholder="Direccion">
                                     <label for="Region">Regi&oacute;n</label>
                                     <select class="form-select" id="Region" required>
                                         <option value="">Seleccione una Regi&oacute;n</option>
@@ -191,7 +191,50 @@ $(document).ready(function() {
                             suscripcion: 'false'
                             },
                         success: function(data) {
-                            user = JSON.stringify(data);
+                            console.log(data);
+                            //user = JSON.stringify(data);
+                            $.ajax({
+                                url: `${url}/comprar`,
+                                type: 'POST',
+                                data: {
+                                    user_id: data.id_usuario,
+                                    direccion: data.direccion,
+                                    comuna: data.comuna_id,
+                                    user_nombre: `${data.primer_nombre} ${data.apellido_paterno}`,
+                                    user_rut: data.rut,
+                                    carrito: carrito
+                                },
+                                success: function(data) {
+                                    alert('Compra realizada con éxito');
+                                    $('.modal').modal('hide');
+                                    localStorage.setItem('carrito', JSON.stringify([]));     
+                                    $('#productos').children().remove();
+                                    $('#eliminar').remove();
+                                    $('.title').text('Detalle Boleta');
+                                    data.forEach(function(item) {
+                                        if (item.nombre == 'undefined' || item.nombre == null) {
+                                            $('#subtotal').text("$"+ item.subtotal.toLocaleString('es-CL'));
+                                            $('#iva').text("$"+ item.iva.toLocaleString('es-CL'));
+                                            $('#total').text("$"+ item.total.toLocaleString('es-CL'));
+                                            voucher_html = `<th>Número de Voucher</th>
+                                                            <td>${item.voucher}</td>`;
+                                            $('#voucher').append(voucher_html);
+                                            seguimiento_html = `<th>Número de Seguimiento</th>
+                                                            <td>${item.id_despacho}</td>`;
+                                            $('#seguimiento').append(seguimiento_html);
+                                            $('#btn-pagar').remove();
+                                        } else {
+                                            product_html = 
+                                            `   <tr><td scope="col">${item.nombre}</td>
+                                                <td scope="col">$${item.valor_unitario.toLocaleString('es-CL')}</td>
+                                                <td scope="col">${item.cantidad}</td>
+                                                <td scope="col">$${(item.valor_total).toLocaleString('es-CL')}</td>
+                                                </tr>`;
+                                            $('#productos').append(product_html);                                
+                                        }
+                                    });
+                                }
+                            });
                         },
                         error: function(error) {
                             alert('Error al registrar su compra, revise los datos ingresados. Si posee una cuenta, intente iniciar sesión.');
