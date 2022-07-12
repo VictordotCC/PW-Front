@@ -189,6 +189,114 @@ $(document).ready(function() {
         }
     });
 
+    $('#buscar-seguimiento').click(function(){
+        id_pedido = $('#pedido').val();
+        if (id_pedido <=0){
+            alert('Ingrese un numero de pedido valido');
+            $('.bodega').each(function(){
+                $(this).removeClass('despacho');
+            });
+            $('.preparando').each(function(){
+                $(this).removeClass('despacho');
+            });
+            $('.camino').each(function(){
+                $(this).removeClass('despacho');
+            });
+            $('.entregado').each(function(){
+                $(this).removeClass('despacho');
+            });
+            return false
+        }
+        $.ajax({
+            url: `${url}/seguimiento/${id_pedido}`,
+            type: 'GET',
+            dataType: 'json',
+            success: function(data){
+                $('#destino').text(data.direccion);
+                $('#destinatario').text(data.nombre_recibe);
+                estado = data.esto_despacho;
+                switch (estado) {
+                    case 0:
+                        $('.bodega').each(function(){
+                            $(this).addClass('despacho');
+                        });
+                        $('.preparando').each(function(){
+                            $(this).removeClass('despacho');
+                        });
+                        $('.camino').each(function(){
+                            $(this).removeClass('despacho');
+                        });
+                        $('.entregado').each(function(){
+                            $(this).removeClass('despacho');
+                        });
+                        $('#texto-desp').text('Su pedido se encuentra a la espera en nuestras bodegas');
+                        break;
+                    case 1:
+                        $('.bodega').each(function(){
+                            $(this).removeClass('despacho');
+                        });
+                        $('.preparando').each(function(){
+                            $(this).addClass('despacho');
+                        });
+                        $('.camino').each(function(){
+                            $(this).removeClass('despacho');
+                        });
+                        $('.entregado').each(function(){
+                            $(this).removeClass('despacho');
+                        });
+                        $('#texto-desp').text('Su pedido está en preparación');
+                        break;
+                    case 2:
+                        $('.bodega').each(function(){
+                            $(this).removeClass('despacho');
+                        });
+                        $('.preparando').each(function(){
+                            $(this).removeClass('despacho');
+                        });
+                        $('.camino').each(function(){
+                            $(this).addClass('despacho');
+                        });
+                        $('.entregado').each(function(){
+                            $(this).removeClass('despacho');
+                        });
+                        $('#texto-desp').text('Su pedido está en camino');
+                        break;
+                    case 3:
+                        $('.bodega').each(function(){
+                            $(this).removeClass('despacho');
+                        });
+                        $('.preparando').each(function(){
+                            $(this).removeClass('despacho');
+                        });
+                        $('.camino').each(function(){
+                            $(this).removeClass('despacho');
+                        });
+                        $('.entregado').each(function(){
+                            $(this).addClass('despacho');
+                        });
+                        $('#texto-desp').text('Su pedido ha sido entregado');
+                        break;
+                        default:
+                        $('.bodega').each(function(){
+                            $(this).removeClass('despacho');
+                        });
+                        $('.preparando').each(function(){
+                            $(this).removeClass('despacho');
+                        });
+                        $('.camino').each(function(){
+                            $(this).removeClass('despacho');
+                        });
+                        $('.entregado').each(function(){
+                            $(this).removeClass('despacho');
+                        });
+                    
+                }
+
+            }
+        })
+
+    });
+
 });
 
 

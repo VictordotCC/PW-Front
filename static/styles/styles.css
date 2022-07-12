@@ -38,6 +38,10 @@
     margin-top: 5px;
 }
 
+.despacho {
+    color: rgb(255,0,0);
+}
+
 small {
     color : gray;
     font-size: 12px;
