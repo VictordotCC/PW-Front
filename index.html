@@ -121,34 +121,34 @@
               <div class="row justify-content-center">
                 <div class="col-md-4 mb-3">
                   <label for="validationTooltip01">Nº Seguimiento</label>
-                  <input type="text" class="form-control" id="validationTooltip01" placeholder="Número de Pedido" required>
+                  <input type="number" class="form-control" id="pedido" placeholder="Número de Pedido" required>
                   <div class="invalid-tooltip">
                     Por favor ingrese un número de pedido válido.
                   </div>
                 </div>
                 <div class="col-12">
-                  <button class="btn btn-success" type="submit">Buscar</button>
+                  <button type="button" class="btn btn-success" id="buscar-seguimiento">Buscar</button>
                 </div>
               </div>
             </form>
           </div>
           <br>
           <div class="row justify-content-between text-center">
-            <span class="col-3 bodega" style="color:rgb(255, 0, 0)"><i class="fa-solid fa-warehouse fa-2x"></i></span><!-- Elminar el estilo : Backend-->
+            <span class="col-3 bodega"><i class="fa-solid fa-warehouse fa-2x"></i></span><!-- Elminar el estilo : Backend-->
             <span class="col-3 preparando"><i class="fa-solid fa-truck-ramp-box fa-2x"></i></span> 
             <span class="col-3 camino"><i class="fa-solid fa-truck fa-2x"></i></span>
             <span class="col-3 entregado"><i class="fa-solid fa-check fa-2x"></i></span>
           </div>
           <br>
           <div class="row text-center">
-            <span class="col-3 bodega" style="color:rgb(255, 0, 0)">En Bodega</span><!-- Elminar el estilo : Backend-->
+            <span class="col-3 bodega">En Bodega</span><!-- Elminar el estilo : Backend-->
             <span class="col-3 preparando">Preparando Entrega</span> 
             <span class="col-3 camino">Camino al Domicilio</span>
             <span class="col-3 entregado">Entregado</span>
           </div>
           <br>
           <div class="row text-center" style="border-color: #ffffff; border-style: solid;">
-            <p>Su pedido se encuentra a la espera en nuestras bodegas</p>
+            <p id="texto-desp"></p>
             <div class="table-responsive">
               <h3>Pedido N°:</h3>
               <table class="table table-borderless" style="color: white" id="tabladespacho">
@@ -165,9 +165,9 @@
                   <tr><!-- eliminar info al implementar backend-->
                     <td>Express</td>
                     <td>10/10/2019</td>
-                    <td>Calle falsa 123</td>
+                    <td id="destino"></td>
                     <td>10/10/2021 21:03:04</td>
-                    <td>Juan Perez</td>
+                    <td id="destinatario"></td>
                 </tbody>
               </table>
 
