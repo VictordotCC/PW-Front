@@ -1,4 +1,4 @@
-const url = 'https://victordotcc-pw-back-r44gwqgvj2wjrx-5000.githubpreview.dev/';
+const url = 'http://127.0.0.1:5000';
 localStorage.setItem('url', url);
 
 $(document).ready(function() { 

@@ -1,0 +1,12 @@
+Buenas tardes profesor, estas son las instrucciones para poder  correr el proyecto y asi poder evaluar.
+
+1.- primero, debe realizar un "cd" a la carpeta PW-Back  Ej: cd C:\Users\natal\Desktop\back\PW-Back
+2.- segundo, debera buscar en la carpeta PW-Back la aplicacion "app.py"
+3.- tercero, debe ingresar a la seccion de la consola "TERMINAL"
+4.- cuarto, al estar en el terminal debera correr el "flask run"
+5.- quinto, ya el flask run ejecutado debio entregar una url  Ej: "http://127.0.0.1:5000"
+6.- sexto, esta url debe copiarla, y debe irse a la carpeta PW-Front
+7.- septimo, dentro de esa carpeta ingresara a la carpeta "scripts"
+8.- octavo, dentro de la carpeta scripts debe de ingresar al archivo "script.js"
+9.- noveno, dentro de ese codigo en la linea 1 encontrara "const url = 'http://127.0.0.1:5000';" donde debera remplazar la url anterior copiada por la existente
+10.-decimo, ya remplazada la url, guarde y ejecute desde el archivo "index.html"
