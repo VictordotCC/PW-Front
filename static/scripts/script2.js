@@ -18,15 +18,76 @@ $(document).ready(function() {
             data.forEach(function(producto) {
                 product_html = 
                 `   <tr><td scope="col">${producto.nombre}</td>
-                    <td scope="col">$${producto.valor_venta.toLocaleString('es-CL')}</td>
-                    <td scope="col">${producto.cantidad}</td>
-                    <td scope="col">$${(producto.valor_venta * producto.cantidad).toLocaleString('es-CL')}</td>
+                    <td id="precio" scope="col">$${producto.valor_venta.toLocaleString('es-CL')}</td>
+                    <td scope="col" class="input-group"><input type="number" class="form-control counter-label" value="${producto.cantidad}" readonly>
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-outline-success sumar">+</button>
+                            <button type="button" class="btn btn-outline-danger restar">-</button>
+                        </div>
+                    </td>
+                    <td id="subtotal-producto" scope="col">$${(producto.valor_venta * producto.cantidad).toLocaleString('es-CL')}</td>
                     <td scope="col" style="color: rgb(250, 1, 1)"><i class="fa-solid fa-delete-left ps-4 clickable eliminar"></i></td>
-                    <td><input type="hidden" name="codigo" value="${producto.codigo}"></td>
+                    <td><input type="hidden" id= "codigo" name="codigo" value="${producto.codigo}"></td>
                     </tr>`;
                 $('#productos').append(product_html);
                 subtotal += producto.valor_venta * producto.cantidad;
                 });
+
+                $('.sumar').click(function() {
+                    var cantidad = $(this).parent().parent().find('.counter-label').val();
+                    var codigo = $(this).parent().parent().parent().find('#codigo').val();
+                    var precio = $(this).parent().parent().parent().find('#precio').text().replace(/[^0-9]/g, '');
+                    subtotal -= parseInt(precio)*parseInt(cantidad);
+                    carrito.push(codigo);
+                    cantidad = parseInt(cantidad) + 1;
+                    $(this).parent().parent().find('.counter-label').val(cantidad);
+                    localStorage.setItem('carrito', JSON.stringify(carrito));
+                    $(this).parent().parent().parent().find('#subtotal-producto').text('$' + (cantidad * precio).toLocaleString('es-CL'));
+                    subtotal += parseInt(precio)*parseInt(cantidad);
+                    $('#subtotal').text('$' + subtotal.toLocaleString('es-CL'));
+                    $('#iva').text("$"+ (Math.round(subtotal * 0.19)).toLocaleString('es-CL'));
+                    total = subtotal + (Math.round(subtotal * 0.19));
+                    $('#total').text('$' + total.toLocaleString('es-CL'));
+                });
+
+                $('.restar').click(function() {
+                    var cantidad = $(this).parent().parent().find('.counter-label').val();
+                    if (cantidad <= 1) {
+                        $(this).parent().parent().parent().remove();
+                        subtotal -= $(this).parent().parent().parent().children().eq(3).text().replace(/[^0-9]/g, '');
+                        $('#subtotal').text("$"+ subtotal.toLocaleString('es-CL'));
+                        iva = Math.round(subtotal * 0.19);
+                        $('#iva').text("$"+ iva.toLocaleString('es-CL'));
+                        total = subtotal + iva;
+                        $('#total').text("$"+ total.toLocaleString('es-CL'));
+                        item = $(this).parent().parent().parent().children().eq(5).children().val();
+                        carrito = carrito.filter(function(element) {
+                            return element!= item;
+                            });
+                        localStorage.setItem('carrito', JSON.stringify(carrito));
+                        $('#total_modal').text(total.toLocaleString('es-CL'));
+                            
+                        if ($('#productos').children().length == 0) {
+                            $('#productos').append('<tr><td colspan="7" style="text-align: center;">No hay productos en el carrito</td></tr>');
+                            $('#btn-pagar').attr('disabled', true);
+                        }
+                        return;
+                    }
+                    var codigo = $(this).parent().parent().parent().find('#codigo').val();
+                    var precio = $(this).parent().parent().parent().find('#precio').text().replace(/[^0-9]/g, '');
+                    subtotal -= parseInt(precio)*parseInt(cantidad);
+                    carrito.pop(codigo);
+                    cantidad = parseInt(cantidad) - 1;
+                    $(this).parent().parent().find('.counter-label').val(cantidad);
+                    localStorage.setItem('carrito', JSON.stringify(carrito));
+                    $(this).parent().parent().parent().find('#subtotal-producto').text('$' + (cantidad * precio).toLocaleString('es-CL'));
+                    subtotal += parseInt(precio)*parseInt(cantidad);
+                    $('#subtotal').text('$' + subtotal.toLocaleString('es-CL'));
+                    $('#iva').text("$"+ (Math.round(subtotal * 0.19)).toLocaleString('es-CL'));
+                    total = subtotal + (Math.round(subtotal * 0.19));
+                    $('#total').text('$' + total.toLocaleString('es-CL'));
+                });
+
 
             $('#subtotal').text("$"+ subtotal.toLocaleString('es-CL'));
             $('#iva').text("$"+ (Math.round(subtotal * 0.19)).toLocaleString('es-CL'));
@@ -42,7 +103,6 @@ $(document).ready(function() {
                 total = subtotal + iva;
                 $('#total').text("$"+ total.toLocaleString('es-CL'));
                 item = $(this).parent().parent().children().eq(5).children().val();
-                // remove all ocurrences of the item from the cart
                 carrito = carrito.filter(function(element) {
                     return element!= item;
                     });
@@ -57,7 +117,7 @@ $(document).ready(function() {
             $('#btn-pagar').click(function() {
                 user = JSON.parse(localStorage.getItem('user'));
                 if (user == null) {
-                    inputhtml = `<form>
+                    inputhtml = `<form id ="form-compra">
                                 <div class="form-group">
                                     <label for="nombre">Nombre</label>
                                     <input type="text" class="form-control" id="nombre" placeholder="Nombre">
@@ -171,7 +231,7 @@ $(document).ready(function() {
                     } else {
                         $('#Telefono').removeClass('is-invalid');
                     }
-                    var inputs = $('#form-registro').find('.is-invalid');
+                    var inputs = $('#form-compra').find('.is-invalid');
                     if (inputs.length > 0) {
                         return false;
                     };
@@ -191,7 +251,6 @@ $(document).ready(function() {
                             suscripcion: 'false'
                             },
                         success: function(data) {
-                            console.log(data);
                             //user = JSON.stringify(data);
                             $.ajax({
                                 url: `${url}/comprar`,
@@ -242,48 +301,50 @@ $(document).ready(function() {
                         }
                     });
                 }
-                $.ajax({
-                    url: `${url}/comprar`,
-                    type: 'POST',
-                    data: {
-                        user_id: user.id_usuario,
-                        direccion: user.direccion,
-                        comuna: user.comuna_id,
-                        user_nombre: `${user.primer_nombre} ${user.apellido_paterno}`,
-                        user_rut: user.rut,
-                        carrito: carrito
-                    },
-                    success: function(data) {
-                        alert('Compra realizada con éxito');
-                        $('.modal').modal('hide');
-                        localStorage.setItem('carrito', JSON.stringify([]));     
-                        $('#productos').children().remove();
-                        $('#eliminar').remove();
-                        $('.title').text('Detalle Boleta');
-                        data.forEach(function(item) {
-                            if (item.nombre == 'undefined' || item.nombre == null) {
-                                $('#subtotal').text("$"+ item.subtotal.toLocaleString('es-CL'));
-                                $('#iva').text("$"+ item.iva.toLocaleString('es-CL'));
-                                $('#total').text("$"+ item.total.toLocaleString('es-CL'));
-                                voucher_html = `<th>Número de Voucher</th>
-                                                <td>${item.voucher}</td>`;
-                                $('#voucher').append(voucher_html);
-                                seguimiento_html = `<th>Número de Seguimiento</th>
-                                                <td>${item.id_despacho}</td>`;
-                                $('#seguimiento').append(seguimiento_html);
-                                $('#btn-pagar').remove();
-                            } else {
-                                product_html = 
-                                `   <tr><td scope="col">${item.nombre}</td>
-                                    <td scope="col">$${item.valor_unitario.toLocaleString('es-CL')}</td>
-                                    <td scope="col">${item.cantidad}</td>
-                                    <td scope="col">$${(item.valor_total).toLocaleString('es-CL')}</td>
-                                    </tr>`;
-                                $('#productos').append(product_html);                                
-                            }
-                        });
-                    }
-                });
+                if (user != null) {
+                    $.ajax({
+                        url: `${url}/comprar`,
+                        type: 'POST',
+                        data: {
+                            user_id: user.id_usuario,
+                            direccion: user.direccion,
+                            comuna: user.comuna_id,
+                            user_nombre: `${user.primer_nombre} ${user.apellido_paterno}`,
+                            user_rut: user.rut,
+                            carrito: carrito
+                        },
+                        success: function(data) {
+                            alert('Compra realizada con éxito');
+                            $('.modal').modal('hide');
+                            localStorage.setItem('carrito', JSON.stringify([]));     
+                            $('#productos').children().remove();
+                            $('#eliminar').remove();
+                            $('.title').text('Detalle Boleta');
+                            data.forEach(function(item) {
+                                if (item.nombre == 'undefined' || item.nombre == null) {
+                                    $('#subtotal').text("$"+ item.subtotal.toLocaleString('es-CL'));
+                                    $('#iva').text("$"+ item.iva.toLocaleString('es-CL'));
+                                    $('#total').text("$"+ item.total.toLocaleString('es-CL'));
+                                    voucher_html = `<th>Número de Voucher</th>
+                                                    <td>${item.voucher}</td>`;
+                                    $('#voucher').append(voucher_html);
+                                    seguimiento_html = `<th>Número de Seguimiento</th>
+                                                    <td>${item.id_despacho}</td>`;
+                                    $('#seguimiento').append(seguimiento_html);
+                                    $('#btn-pagar').remove();
+                                } else {
+                                    product_html = 
+                                    `   <tr><td scope="col">${item.nombre}</td>
+                                        <td scope="col">$${item.valor_unitario.toLocaleString('es-CL')}</td>
+                                        <td scope="col">${item.cantidad}</td>
+                                        <td scope="col">$${(item.valor_total).toLocaleString('es-CL')}</td>
+                                        </tr>`;
+                                    $('#productos').append(product_html);                                
+                                }
+                            });
+                        }
+                    });
+                }
             });
         },
         error: function(error) {
